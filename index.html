@@ -1,125 +1,1198 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>James Barruga — AI Automation & Systems Builder</title>
-<meta name="description" content="James Barruga — AI automation and systems builder. n8n, Python, Next.js, Playwright. Cold email pipelines, AI voice agents, video orchestration." />
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>James Barruga — Full-Stack & AI Engineer</title>
+<meta name="description" content="James Barruga — full-stack and AI/data engineer. Next.js, TypeScript, Python, AI systems, automation, and data pipelines. Designs, builds, and ships production software end-to-end.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a0b'/><text y='24' x='4' font-size='22'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  /* Fail-safe reveal: add .js class so scroll-reveal only hides things when JS is active */
+  document.documentElement.classList.add('js');
+</script>
 <style>
-  html { color-scheme: dark; }
-  body { background:#0a0a0a; color:#e5e5e5; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
-  .card { background:#141414; border:1px solid #262626; border-radius:12px; transition: border-color .15s ease; }
-  .card:hover { border-color:#525252; }
-  .tag { background:#1f1f1f; color:#a3a3a3; font-size:11px; padding:2px 8px; border-radius:9999px; }
-  .btn-primary { background:#fafafa; color:#0a0a0a; }
-  .btn-primary:hover { background:#e5e5e5; }
-  .btn-ghost { border:1px solid #404040; color:#e5e5e5; }
-  .btn-ghost:hover { border-color:#737373; }
+  :root {
+    --bg: #0a0a0b;
+    --surface: #141417;
+    --border: #26262b;
+    --text: #ededf0;
+    --muted: #9a9aa6;
+    --accent: #8b5cf6;
+    --accent-light: #a78bfa;
+    --accent-glow: rgba(139,92,246,.25);
+    --radius: 12px;
+    --max: 1100px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* ---- Fail-safe scroll-reveal ---- */
+  /* Content is fully visible by default. Only hidden if JS is active. */
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  html.js .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ---- Nav ---- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: transparent;
+    transition: background 0.25s ease, backdrop-filter 0.25s ease;
+  }
+  nav.scrolled {
+    background: rgba(10,10,11,.72);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0;
+    color: var(--text);
+    text-decoration: none;
+    background: rgba(20,20,23,.55);
+    border: 1px solid rgba(255,255,255,.08);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    transition: border-color .2s, color .2s;
+  }
+  .wordmark:hover { border-color: var(--accent); color: var(--accent-light); }
+  .wordmark span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+    background: rgba(20,20,23,.55);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 9999px;
+    padding: 11px 24px;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ---- Layout ---- */
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  section { padding: 96px 0; }
+
+  /* ---- Hero ---- */
+  #home {
+    padding: 120px 0 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 28px;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .hero-headline {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+  .hero-headline em {
+    font-style: normal;
+    color: var(--accent-light);
+  }
+  .hero-roles {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-light);
+    letter-spacing: 0.01em;
+    margin-bottom: 28px;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 52px;
+  }
+  .pill-available {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(139,92,246,.12);
+    border: 1px solid rgba(139,92,246,.35);
+    color: var(--accent-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+  }
+  .pill-available::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #4ade80;
+  }
+  .btn-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-social:hover {
+    border-color: var(--accent);
+    background: rgba(139,92,246,.08);
+  }
+  .btn-social svg { width: 15px; height: 15px; }
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    flex-shrink: 0;
+  }
+  .btn-icon:hover {
+    border-color: var(--accent);
+    background: rgba(139,92,246,.08);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .btn-icon svg { width: 18px; height: 18px; }
+  /* Tech marquee */
+  .tech-marquee-wrap {
+    overflow: hidden;
+    padding: 8px 0;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .tech-track {
+    display: flex;
+    width: max-content;
+    gap: 3rem;
+    align-items: center;
+    animation: techscroll 38s linear infinite;
+  }
+  .tech-track:hover { animation-play-state: paused; }
+  @keyframes techscroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .tech-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tech-item img { height: 26px; width: auto; display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    .tech-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+      gap: 18px;
+    }
+  }
+
+  /* Rain bg */
+  .rain-canvas {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 62%;
+    pointer-events: none;
+    opacity: 1;
+    z-index: 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 40%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 40%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+
+  /* ---- Stats ---- */
+  #stats {
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .stat-block {
+    padding: 24px 32px;
+    border-right: 1px solid var(--border);
+  }
+  .stat-block:last-child { border-right: none; }
+  .stat-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .stat-sub {
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  /* ---- Section headings ---- */
+  .section-label {
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 48px;
+  }
+
+  /* ---- Work ---- */
+  .group-eyebrow {
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .work-group { margin-bottom: 64px; }
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  a.card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 24px var(--accent-glow);
+    text-decoration: none;
+  }
+  .card-confidential {
+    cursor: default;
+  }
+  .card-featured {
+    grid-column: 1 / -1;
+  }
+  .card-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 14px;
+  }
+  .card-featured .card-title { font-size: 1.5rem; max-width: 640px; }
+  .card-featured .card-desc { max-width: 720px; font-size: 1rem; }
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 16px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+  }
+  .tag {
+    padding: 3px 9px;
+    border-radius: 5px;
+    background: rgba(139,92,246,.1);
+    border: 1px solid rgba(139,92,246,.2);
+    color: var(--accent-light);
+    font-size: 0.73rem;
+    font-weight: 500;
+  }
+  .card-note {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .card-link-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: var(--accent-light);
+    margin-top: 12px;
+    font-weight: 500;
+  }
+
+  /* ---- Capabilities ---- */
+  #stack { background: var(--bg); }
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .cap-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .cap-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cap-card-title::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .cap-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cap-items li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+    padding-left: 12px;
+    position: relative;
+  }
+  .cap-items li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ---- Approach ---- */
+  #approach .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .approach-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .approach-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(139,92,246,.2);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .approach-text {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ---- Experience ---- */
+  .exp-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+    max-width: 740px;
+  }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .exp-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .exp-company {
+    font-size: 1rem;
+    color: var(--accent-light);
+    font-weight: 500;
+  }
+  .exp-period {
+    font-size: 0.82rem;
+    color: var(--muted);
+    background: rgba(139,92,246,.1);
+    border: 1px solid rgba(139,92,246,.2);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .exp-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ---- Contact ---- */
+  #contact {
+    text-align: center;
+    padding: 96px 0 80px;
+  }
+  .contact-line {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .contact-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    background: var(--accent-light);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  /* ---- Footer ---- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+  }
+  .footer-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+  .footer-wordmark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.03em;
+  }
+  .footer-wordmark span { color: var(--accent); }
+  .footer-meta {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-block { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat-block:nth-child(2n) { border-bottom: 1px solid var(--border); }
+    .stat-block:last-child { border-bottom: none; }
+    .nav-links { display: none; }
+    .hero-headline { font-size: clamp(2.5rem, 12vw, 4rem); }
+    .work-grid { grid-template-columns: 1fr; }
+    .card-featured { grid-column: auto; }
+    .cap-grid { grid-template-columns: 1fr; }
+    section { padding: 64px 0; }
+  }
+
+  /* focus */
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 </style>
 </head>
 <body>
-<main class="max-w-5xl mx-auto px-4 py-12 md:py-16">
 
-  <header class="mb-14">
-    <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">James Barruga</h1>
-    <p class="mt-2 text-lg text-neutral-400">AI Automation &amp; Systems Builder — currently at JoNeX Agency</p>
-    <p class="mt-5 max-w-2xl text-neutral-300 leading-relaxed">
-      I build production AI pipelines that ship. Cold-email outreach with human-in-the-loop safety, AI voice receptionists for SMBs, documentary video orchestration, and multi-role enterprise dashboards. Stack ranges from n8n workflows to Next.js apps to Playwright scrapers — whatever the problem actually needs.
-    </p>
-    <div class="mt-6 flex flex-wrap gap-3">
-      <a class="btn-primary px-4 py-2 rounded-lg text-sm font-medium" href="cv/james-barruga-cv.pdf" download>Download CV</a>
-      <a class="btn-ghost px-4 py-2 rounded-lg text-sm" href="mailto:santiagobarruga@proton.me">Email me</a>
-      <a class="btn-ghost px-4 py-2 rounded-lg text-sm" href="https://github.com/jamesbarruga">GitHub</a>
+<!-- Nav -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#home" class="wordmark" aria-label="James Barruga — home">J<span>B</span></a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="home">
+  <canvas class="rain-canvas" id="rain" aria-hidden="true"></canvas>
+  <div class="container hero-content">
+    <div class="reveal">
+      <p class="hero-label">Hi, I'm James Barruga</p>
+      <h1 class="hero-headline">Full-Stack &amp;<br><em>AI Engineer</em></h1>
+      <p class="hero-roles">AI Developer · AI Orchestrator · Full-Stack</p>
+      <p class="hero-sub">I design, build, deploy, and run production systems end-to-end — full-stack web apps, AI agents, and the data pipelines behind them. From a real business problem to shipped, tested, and running.</p>
+      <div class="hero-actions">
+        <span class="pill-available">Available for work</span>
+        <a href="https://github.com/jamesbarruga" class="btn-icon" target="_blank" rel="noopener" aria-label="GitHub profile">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="mailto:santiagobarruga@gmail.com" class="btn-icon" aria-label="Send email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        </a>
+        <a href="cv/james-barruga-cv.pdf" class="btn-social" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+      </div>
+            <div class="tech-marquee-wrap" aria-label="Core technologies">
+        <div class="tech-track">
+        <span class="tech-item"><img src="assets/icons/typescript.svg" alt="TypeScript" height="26"><span>TypeScript</span></span>
+        <span class="tech-item"><img src="assets/icons/javascript.svg" alt="JavaScript" height="26"><span>JavaScript</span></span>
+        <span class="tech-item"><img src="assets/icons/react.svg" alt="React" height="26"><span>React</span></span>
+        <span class="tech-item"><img src="assets/icons/nextjs.svg" alt="Next.js" height="26"><span>Next.js</span></span>
+        <span class="tech-item"><img src="assets/icons/nodejs.svg" alt="Node.js" height="26"><span>Node.js</span></span>
+        <span class="tech-item"><img src="assets/icons/python.svg" alt="Python" height="26"><span>Python</span></span>
+        <span class="tech-item"><img src="assets/icons/postgresql.svg" alt="PostgreSQL" height="26"><span>PostgreSQL</span></span>
+        <span class="tech-item"><img src="assets/icons/tailwindcss.svg" alt="Tailwind CSS" height="26"><span>Tailwind CSS</span></span>
+        <span class="tech-item"><img src="assets/icons/git.svg" alt="Git" height="26"><span>Git</span></span>
+        <span class="tech-item"><img src="assets/icons/firebase.svg" alt="Firebase" height="26"><span>Firebase</span></span>
+        <span class="tech-item"><img src="assets/icons/typescript.svg" alt="TypeScript" height="26"><span>TypeScript</span></span>
+        <span class="tech-item"><img src="assets/icons/javascript.svg" alt="JavaScript" height="26"><span>JavaScript</span></span>
+        <span class="tech-item"><img src="assets/icons/react.svg" alt="React" height="26"><span>React</span></span>
+        <span class="tech-item"><img src="assets/icons/nextjs.svg" alt="Next.js" height="26"><span>Next.js</span></span>
+        <span class="tech-item"><img src="assets/icons/nodejs.svg" alt="Node.js" height="26"><span>Node.js</span></span>
+        <span class="tech-item"><img src="assets/icons/python.svg" alt="Python" height="26"><span>Python</span></span>
+        <span class="tech-item"><img src="assets/icons/postgresql.svg" alt="PostgreSQL" height="26"><span>PostgreSQL</span></span>
+        <span class="tech-item"><img src="assets/icons/tailwindcss.svg" alt="Tailwind CSS" height="26"><span>Tailwind CSS</span></span>
+        <span class="tech-item"><img src="assets/icons/git.svg" alt="Git" height="26"><span>Git</span></span>
+        <span class="tech-item"><img src="assets/icons/firebase.svg" alt="Firebase" height="26"><span>Firebase</span></span>
+        </div>
+      </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <section class="mb-14">
-    <h2 class="text-xs uppercase tracking-widest text-neutral-500 mb-5">Selected Work</h2>
-    <div class="grid md:grid-cols-2 gap-4">
+<!-- Impact Stats -->
+<div id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-block reveal">
+        <div class="stat-val">Founding</div>
+        <div class="stat-sub">Engineer</div>
+        <div class="stat-label">JoNeX</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-val">10+</div>
+        <div class="stat-sub">Systems shipped</div>
+        <div class="stat-label">&nbsp;</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-val">4 domains</div>
+        <div class="stat-sub">Hospitality · Healthcare · Fintech · Commerce</div>
+        <div class="stat-label">&nbsp;</div>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-val">Full-stack · AI · Data</div>
+        <div class="stat-sub">End-to-end</div>
+        <div class="stat-label">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/cold-email-automation">
-        <div class="text-base font-medium">Cold Email Automation Pipeline</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">Production cold outreach for JoNeX Agency. Lead enrichment, AI-personalized drafts, Telegram approval gate, manual Gmail send.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">Python</span><span class="tag">n8n</span><span class="tag">Telegram Bot</span><span class="tag">Gmail API</span>
+<!-- Selected Work -->
+<section id="work">
+  <div class="container">
+    <p class="section-label reveal">Selected Work</p>
+    <h2 class="section-title reveal">What I've built and shipped</h2>
+
+    <!-- Group A: Client production systems -->
+    <div class="work-group reveal">
+      <p class="group-eyebrow">Client production systems</p>
+      <div class="work-grid">
+
+        <!-- Featured: Cherish -->
+        <a href="[CONFIRM Cherish link]" class="card card-featured" aria-label="Hospitality client — website, no-code CMS, online ordering">
+          <span class="card-eyebrow">Featured project</span>
+          <h3 class="card-title">Hospitality client — website + no-code CMS + online ordering</h3>
+          <p class="card-desc">A full Next.js site for a resort/hospitality business with a custom no-code admin CMS — the client edits all six content sections themselves — plus a Messenger-based ordering flow. Designed, built, and shipped to production.</p>
+          <div class="card-tags">
+            <span class="tag">Next.js 16</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Headless CMS</span>
+            <span class="tag">Tailwind</span>
+            <span class="tag">Messenger API</span>
+          </div>
+          <p class="card-note">Live link on request.</p>
+        </a>
+
+        <!-- Healthcare ops -->
+        <div class="card card-confidential" aria-label="Healthcare operations automation — confidential">
+          <h3 class="card-title">Healthcare operations automation</h3>
+          <p class="card-desc">Internal revenue-cycle / operations automation for a US medical practice — workflow design to cut manual back-office work.</p>
+          <div class="card-tags">
+            <span class="tag">Automation</span>
+            <span class="tag">Ops</span>
+            <span class="tag">Healthcare</span>
+          </div>
+          <p class="card-note">Confidential — details on request.</p>
         </div>
-      </a>
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/ai-voice-receptionist">
-        <div class="text-base font-medium">AI Voice Receptionist</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">24/7 inbound phone agent for an SMB. ElevenLabs voice, n8n business logic, Twilio telephony, CRM sync.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">ElevenLabs</span><span class="tag">n8n</span><span class="tag">Twilio</span>
+        <!-- Financial planner -->
+        <div class="card card-confidential" aria-label="Custom financial planner — private build">
+          <h3 class="card-title">Custom financial planner</h3>
+          <p class="card-desc">A two-earner budgeting + debt-payoff planner: dated-log inputs feed a live dashboard (donut/bar/yearly charts) with an NPER debt-free-date projection and sinking funds.</p>
+          <div class="card-tags">
+            <span class="tag">Google Sheets API</span>
+            <span class="tag">Data viz</span>
+            <span class="tag">Finance</span>
+          </div>
+          <p class="card-note">Private build — demo on request.</p>
         </div>
-      </a>
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/leadgen-prospecting-toolkit">
-        <div class="text-base font-medium">Lead Prospecting Toolkit</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">Playwright + Python B2B lead toolkit. Multi-source discovery, contact extraction, anti-bot evasion, lead scoring.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">Playwright</span><span class="tag">Python</span>
-        </div>
-      </a>
+      </div>
+    </div>
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/clipt-money-truth-cockpit">
-        <div class="text-base font-medium">Money Truth Cockpit</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">Finance reconciliation dashboard. Surfaces revenue and expense mismatches across sources in one view. Live demo.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">JavaScript</span><span class="tag">Tailwind</span>
-        </div>
-      </a>
+    <!-- Group B: AI systems -->
+    <div class="work-group reveal">
+      <p class="group-eyebrow">AI systems</p>
+      <div class="work-grid">
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/ai-video-pipeline">
-        <div class="text-base font-medium">AI Video Pipeline</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">n8n orchestrator: news topic → verified script → Higgsfield visuals → Shotstack edit → finished documentary segment. Built for a production client.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">n8n</span><span class="tag">Higgsfield</span><span class="tag">Shotstack</span><span class="tag">Python</span>
-        </div>
-      </a>
+        <a href="https://github.com/jamesbarruga/ai-voice-receptionist" class="card" target="_blank" rel="noopener" aria-label="AI Voice Receptionist on GitHub">
+          <h3 class="card-title">AI Voice Receptionist</h3>
+          <p class="card-desc">24/7 inbound phone agent: ElevenLabs voice, n8n business logic, Twilio telephony, CRM sync.</p>
+          <div class="card-tags">
+            <span class="tag">ElevenLabs</span>
+            <span class="tag">n8n</span>
+            <span class="tag">Twilio</span>
+            <span class="tag">Python</span>
+          </div>
+          <p class="card-link-icon" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            github.com/jamesbarruga
+          </p>
+        </a>
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/ai-product-studio">
-        <div class="text-base font-medium">AI Product Studio</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">Prototype research and content studio for e-commerce products. Vision scraper, AI draft generation, compliance checks. Next.js.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">OpenAI</span>
-        </div>
-      </a>
+        <a href="https://github.com/jamesbarruga/ai-product-studio" class="card" target="_blank" rel="noopener" aria-label="AI Product Studio on GitHub">
+          <h3 class="card-title">AI Product Studio</h3>
+          <p class="card-desc">Research + content studio for e-commerce: vision scraper, AI drafting, compliance checks.</p>
+          <div class="card-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">OpenAI</span>
+          </div>
+          <p class="card-link-icon" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            github.com/jamesbarruga
+          </p>
+        </a>
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/microfinance-os-demo">
-        <div class="text-base font-medium">Microfinance OS Demo</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">Multi-role operations dashboard for microfinance NGOs. Six role-shaped surfaces — exec, ops, field officer, finance, donor, admin — sharing one data layer.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">JavaScript</span><span class="tag">Tailwind</span>
-        </div>
-      </a>
+        <a href="https://github.com/jamesbarruga/ai-video-pipeline" class="card" target="_blank" rel="noopener" aria-label="AI Video Pipeline on GitHub">
+          <h3 class="card-title">AI Video Pipeline</h3>
+          <p class="card-desc">n8n orchestrator: news verification → script → visuals → assembled documentary segment.</p>
+          <div class="card-tags">
+            <span class="tag">n8n</span>
+            <span class="tag">Python</span>
+            <span class="tag">Shotstack</span>
+          </div>
+          <p class="card-link-icon" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            github.com/jamesbarruga
+          </p>
+        </a>
 
-      <a class="card p-5 block" href="https://github.com/jamesbarruga/mobile-commerce-creative-studio">
-        <div class="text-base font-medium">Mobile Commerce Creative Studio</div>
-        <div class="mt-1 text-sm text-neutral-400 leading-relaxed">Mobile-first ecommerce creative tool. AI-assisted product listings, marketplace compliance enforcement, multi-channel content export. Next.js prototype.</div>
-        <div class="mt-3 flex flex-wrap gap-1.5">
-          <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Tailwind</span>
-        </div>
-      </a>
+      </div>
+    </div>
+
+    <!-- Group C: Automation & data -->
+    <div class="work-group reveal">
+      <p class="group-eyebrow">Automation &amp; data</p>
+      <div class="work-grid">
+
+        <a href="https://github.com/jamesbarruga/cold-email-automation" class="card" target="_blank" rel="noopener" aria-label="Cold Email Automation Pipeline on GitHub">
+          <h3 class="card-title">Cold Email Automation Pipeline</h3>
+          <p class="card-desc">Lead enrichment, AI-personalized drafts, human approval gate, manual send.</p>
+          <div class="card-tags">
+            <span class="tag">Python</span>
+            <span class="tag">n8n</span>
+            <span class="tag">Telegram Bot</span>
+            <span class="tag">Gmail API</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/jamesbarruga/leadgen-prospecting-toolkit" class="card" target="_blank" rel="noopener" aria-label="Lead Prospecting Toolkit on GitHub">
+          <h3 class="card-title">Lead Prospecting Toolkit</h3>
+          <p class="card-desc">Playwright + Python B2B toolkit: multi-source discovery, contact extraction, lead scoring.</p>
+          <div class="card-tags">
+            <span class="tag">Playwright</span>
+            <span class="tag">Python</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/jamesbarruga/microfinance-os-demo" class="card" target="_blank" rel="noopener" aria-label="Microfinance OS on GitHub">
+          <h3 class="card-title">Microfinance OS</h3>
+          <p class="card-desc">Multi-role operations dashboard (exec, field officer, finance, admin) over one shared data layer.</p>
+          <div class="card-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Tailwind</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/jamesbarruga/mobile-commerce-creative-studio" class="card" target="_blank" rel="noopener" aria-label="Mobile Commerce Studio on GitHub">
+          <h3 class="card-title">Mobile Commerce Studio</h3>
+          <p class="card-desc">Mobile-first e-commerce creative tool: AI-assisted listings, compliance, multi-channel export.</p>
+          <div class="card-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Tailwind</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Capabilities -->
+<section id="stack">
+  <div class="container">
+    <p class="section-label reveal">Capabilities</p>
+    <h2 class="section-title reveal">Full-stack · AI · Data — the whole range</h2>
+    <div class="cap-grid">
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Languages</p>
+        <ul class="cap-items">
+          <li>TypeScript / JavaScript</li>
+          <li>Python</li>
+          <li>SQL</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Frontend</p>
+        <ul class="cap-items">
+          <li>React</li>
+          <li>Next.js</li>
+          <li>Tailwind CSS</li>
+          <li>Responsive UI</li>
+          <li>Component / design systems</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Backend</p>
+        <ul class="cap-items">
+          <li>Node.js</li>
+          <li>REST APIs &amp; webhooks</li>
+          <li>Serverless / edge functions</li>
+          <li>Supabase-class backends</li>
+          <li>Auth &amp; access control</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Databases &amp; Data</p>
+        <ul class="cap-items">
+          <li>PostgreSQL</li>
+          <li>Firebase</li>
+          <li>BigQuery</li>
+          <li>MongoDB</li>
+          <li>MySQL</li>
+          <li>Vector databases &amp; embeddings</li>
+          <li>Data modeling</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">AI / LLM Engineering</p>
+        <ul class="cap-items">
+          <li>LLM APIs (Claude · GPT · Gemini)</li>
+          <li>RAG / internal assistants on a company's own docs</li>
+          <li>Prompt engineering &amp; reusable prompt libraries</li>
+          <li>AI chat &amp; voice agents (ElevenLabs)</li>
+          <li>Agent &amp; multi-step workflow orchestration</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Automation</p>
+        <ul class="cap-items">
+          <li>n8n</li>
+          <li>Make</li>
+          <li>Zapier</li>
+          <li>Telegram / Gmail bots</li>
+          <li>Multi-step workflow design, troubleshooting &amp; optimization</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Data &amp; Dashboards</p>
+        <ul class="cap-items">
+          <li>Multi-role operations dashboards</li>
+          <li>Data visualization</li>
+          <li>Google Workspace engineering (Sheets/Docs via API — SUMIFS, NPER, live dashboards)</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Integrations</p>
+        <ul class="cap-items">
+          <li>CRMs</li>
+          <li>Twilio telephony</li>
+          <li>Messenger API</li>
+          <li>Notion</li>
+          <li>Airtable</li>
+          <li>Google Workspace</li>
+          <li>Cloud storage</li>
+          <li>Third-party REST APIs</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">Web Automation &amp; Scraping</p>
+        <ul class="cap-items">
+          <li>Playwright / headless browser</li>
+          <li>Data extraction</li>
+          <li>Anti-bot handling</li>
+          <li>SPA scraping</li>
+        </ul>
+      </div>
+
+      <div class="cap-card reveal">
+        <p class="cap-card-title">DevOps &amp; QA</p>
+        <ul class="cap-items">
+          <li>Git</li>
+          <li>CI</li>
+          <li>Playwright test round-trips &amp; build gates</li>
+          <li>Deployment (Vercel · GitHub Pages · VPS)</li>
+        </ul>
+      </div>
 
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="mb-14">
-    <h2 class="text-xs uppercase tracking-widest text-neutral-500 mb-4">Capabilities</h2>
-    <div class="flex flex-wrap gap-2">
-      <span class="tag">n8n</span><span class="tag">Python</span><span class="tag">Next.js</span><span class="tag">Playwright</span>
-      <span class="tag">ElevenLabs</span><span class="tag">Higgsfield</span><span class="tag">Twilio</span>
-      <span class="tag">Gmail API</span><span class="tag">Telegram Bot API</span><span class="tag">SQLite</span>
-      <span class="tag">Tailwind</span><span class="tag">REST &amp; Webhooks</span>
+<!-- Approach -->
+<section id="approach">
+  <div class="container">
+    <p class="section-label reveal">Approach</p>
+    <h2 class="section-title reveal">How I work</h2>
+    <div class="approach-grid">
+
+      <div class="approach-card reveal">
+        <div class="approach-num">01</div>
+        <p class="approach-text">I own the outcome — from the business problem to deployed, working software, not a ticket.</p>
+      </div>
+
+      <div class="approach-card reveal">
+        <div class="approach-num">02</div>
+        <p class="approach-text">Production-first: I test my own work (Playwright round-trips, build gates) before it ships.</p>
+      </div>
+
+      <div class="approach-card reveal">
+        <div class="approach-num">03</div>
+        <p class="approach-text">I build to be read — clean, reusable, maintainable code, whatever the stack.</p>
+      </div>
+
+      <div class="approach-card reveal">
+        <div class="approach-num">04</div>
+        <p class="approach-text">End-to-end: design, build, deploy, and keep it running — full-stack, AI, and the data behind it.</p>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="pt-8 border-t border-neutral-800 text-sm text-neutral-400">
-    <div>santiagobarruga@proton.me · <a class="text-neutral-200 hover:underline" href="https://github.com/jamesbarruga">github.com/jamesbarruga</a></div>
-  </footer>
+<!-- Experience -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label reveal">Experience</p>
+    <h2 class="section-title reveal">Where I've worked</h2>
+    <div class="exp-block reveal">
+      <div class="exp-header">
+        <div>
+          <p class="exp-title">Founding Engineer — AI Systems &amp; Automation</p>
+          <p class="exp-company">JoNeX</p>
+        </div>
+        <span class="exp-period">2026 – Present</span>
+      </div>
+      <p class="exp-desc">Principal hands-on builder of the agency's client systems — working from a client's real problem to design, build, deploy, and iterate production software: web apps, AI agents, automations, and data dashboards.</p>
+    </div>
+  </div>
+</section>
 
-</main>
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label reveal">Contact</p>
+    <h1 class="section-title reveal" style="max-width:600px;margin-left:auto;margin-right:auto;">Let's build something serious.</h1>
+    <p class="contact-line reveal">Open to full-stack and AI/data engineering work.</p>
+    <div class="contact-btns reveal">
+      <a href="mailto:santiagobarruga@gmail.com" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        santiagobarruga@gmail.com
+      </a>
+      <a href="https://github.com/jamesbarruga" class="btn-social" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-wordmark">James Barruga<span>.</span></p>
+    <p class="footer-meta">santiagobarruga@gmail.com · github.com/jamesbarruga</p>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  (function () {
+    var nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+  })();
+
+  // Scroll-reveal (only meaningful when html.js is set, which it already is)
+  (function () {
+    var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq && mq.matches) return;
+
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: make everything visible
+      els.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    els.forEach(function (el) { io.observe(el); });
+  })();
+
+  // Code-rain field — dense ASCII grid, gentle shimmer (hero bg)
+  (function () {
+    var canvas = document.getElementById('rain');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, cols, rows, cells;
+    var cellW = 22, cellH = 26, fontPx = 16;
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789{}[]()<>=+*#@$_/.,!&;:-';
+
+    function rch() { return chars[(Math.random() * chars.length) | 0]; }
+    function ralpha() {
+      var x = Math.random();
+      if (x > 0.965) return 0.45;
+      if (x > 0.86)  return 0.24;
+      if (x > 0.62)  return 0.13;
+      return 0.06;
+    }
+    function resize() {
+      W = canvas.offsetWidth; H = canvas.offsetHeight;
+      canvas.width = W; canvas.height = H;
+      cols = Math.ceil(W / cellW); rows = Math.ceil(H / cellH);
+      cells = [];
+      for (var i = 0; i < cols * rows; i++) cells.push({ c: rch(), a: ralpha() });
+      paint();
+    }
+    function paint() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = fontPx + 'px ui-monospace, monospace';
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          var cell = cells[r * cols + c];
+          ctx.fillStyle = 'rgba(139,92,246,' + cell.a + ')';
+          ctx.fillText(cell.c, c * cellW, r * cellH + fontPx);
+        }
+      }
+    }
+    function shimmer() {
+      var n = Math.max(6, (cols * rows * 0.02) | 0);
+      for (var k = 0; k < n; k++) {
+        var idx = (Math.random() * cells.length) | 0;
+        cells[idx].c = rch(); cells[idx].a = ralpha();
+      }
+      paint();
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    // Gentle shimmer only — static for reduced-motion users
+    var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!mq || !mq.matches) setInterval(shimmer, 140);
+  })();
+</script>
 </body>
 </html>
